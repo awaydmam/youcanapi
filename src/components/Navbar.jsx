@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Sun, Moon, Dna, Menu, X } from 'lucide-react'
+import { Sun, Moon, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import useStore from '../store'
 
@@ -16,16 +16,14 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-pulse-surface/80 dark:bg-dark-surface/80 border-b border-pulse-hairline dark:border-dark-hairline">
+    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-hairline">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo — canary yellow wordmark (Miro style) */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pulse-primary to-purple-400 flex items-center justify-center">
-              <Dna className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-bold text-lg text-pulse-ink dark:text-dark-ink">
-              FIT-CHECK <span className="text-pulse-primary dark:text-dark-primary">AI</span>
+            <span className="text-xl font-extrabold tracking-tight">
+              <span className="text-brand-yellow">FIT-CHECK</span>
+              <span className="text-ink ml-1">AI</span>
             </span>
           </Link>
 
@@ -35,41 +33,43 @@ export default function Navbar() {
               <Link
                 key={l.to}
                 to={l.to}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   location.pathname === l.to
-                    ? 'bg-pulse-primary/10 text-pulse-primary dark:text-dark-primary'
-                    : 'text-pulse-mute hover:text-pulse-ink dark:text-dark-mute dark:hover:text-dark-ink hover:bg-pulse-surface-dark dark:hover:bg-dark-surface'
+                    ? 'bg-surface-alt text-ink font-bold'
+                    : 'text-mute hover:text-ink hover:bg-surface-alt'
                 }`}
               >
                 {l.label}
               </Link>
             ))}
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-md text-pulse-mute hover:text-pulse-ink dark:text-dark-mute dark:hover:text-dark-ink hover:bg-pulse-surface-dark dark:hover:bg-dark-surface transition-colors ml-2"
-              aria-label="Toggle dark mode"
-            >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            {isLanding && (
-              <Link to={skinDNA ? '/dashboard' : '/scan'} className="btn-primary ml-3 text-sm">
-                {skinDNA ? 'Dashboard' : 'Get Started'}
-              </Link>
+            {isLanding ? (
+              <div className="flex items-center gap-3 ml-4">
+                <Link to={skinDNA ? '/dashboard' : '/scan'} className="btn-primary text-sm">
+                  Get started free
+                </Link>
+                <a href="#how-it-works" className="btn-secondary text-sm !border !py-2.5">
+                  Book a demo
+                </a>
+              </div>
+            ) : (
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-lg text-mute hover:text-ink hover:bg-surface-alt transition-colors ml-2"
+                aria-label="Toggle dark mode"
+              >
+                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile */}
           <div className="md:hidden flex items-center gap-2">
-            <button onClick={toggleDarkMode} className="p-2 rounded-md text-pulse-mute">
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            <button onClick={() => setOpen(!open)} className="p-2 rounded-md text-pulse-mute">
+            <button onClick={() => setOpen(!open)} className="p-2 rounded-lg text-mute">
               {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile dropdown */}
         {open && (
           <div className="md:hidden pb-4 space-y-1">
             {links.map((l) => (
@@ -77,16 +77,14 @@ export default function Navbar() {
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
-                className="block px-4 py-2 rounded-md text-sm font-medium text-pulse-mute hover:text-pulse-ink hover:bg-pulse-surface-dark"
+                className="block px-4 py-2 rounded-lg text-sm font-medium text-mute hover:text-ink hover:bg-surface-alt"
               >
                 {l.label}
               </Link>
             ))}
-            {isLanding && (
-              <Link to={skinDNA ? '/dashboard' : '/scan'} onClick={() => setOpen(false)} className="block btn-primary mt-2 text-center text-sm">
-                {skinDNA ? 'Dashboard' : 'Get Started'}
-              </Link>
-            )}
+            <Link to={skinDNA ? '/dashboard' : '/scan'} onClick={() => setOpen(false)} className="block btn-primary mt-2 text-center text-sm">
+              Get started free
+            </Link>
           </div>
         )}
       </div>
