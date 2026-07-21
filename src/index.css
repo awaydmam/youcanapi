@@ -2,103 +2,208 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Roobert PRO fallback — Inter is the closest free geometric sans-serif */
+/* Roobert PRO fallback — Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 @layer base {
-  html {
-    @apply scroll-smooth antialiased;
-  }
-  body {
-    @apply bg-canvas text-ink font-sans text-body-md;
-  }
+  html { @apply scroll-smooth antialiased; }
+  body { @apply bg-canvas text-ink font-sans text-body-md; }
+  * { box-sizing: border-box; }
 }
 
 @layer components {
-  /* ===== BUTTONS (Miro: black pill CTA dominant) ===== */
+
+  /* ===================================================
+     BUTTONS — Miro spec: pill-shaped, active-only interaction
+     =================================================== */
+
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3
+    @apply inline-flex items-center justify-center gap-2
+           px-[24px] py-[12px] rounded-pill
            bg-ink text-on-dark font-medium text-btn
-           rounded-pill shadow-sm
-           hover:bg-gray-800 active:bg-gray-900
-           transition-all duration-200 cursor-pointer
-           disabled:opacity-50 disabled:cursor-not-allowed;
+           transition-colors duration-150 cursor-pointer select-none
+           disabled:bg-hairline disabled:text-muted disabled:cursor-not-allowed;
   }
+  .btn-primary:active { @apply bg-charcoal; }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3
-           bg-canvas text-ink font-medium text-btn
-           rounded-pill border-2 border-ink
-           hover:bg-surface active:bg-surface-soft
-           transition-all duration-200 cursor-pointer;
+  .btn-yellow {
+    @apply inline-flex items-center justify-center gap-2
+           px-[24px] py-[12px] rounded-pill
+           bg-brand-yellow text-ink font-medium text-btn
+           transition-colors duration-150 cursor-pointer select-none;
   }
-
-  .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2
-           text-ink font-medium text-btn rounded-lg
-           hover:bg-surface transition-colors cursor-pointer;
-  }
+  .btn-yellow:active { @apply bg-brand-yellow-deep; }
 
   .btn-blue {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3
+    @apply inline-flex items-center justify-center gap-2
+           px-[24px] py-[12px] rounded-pill
            bg-brand-blue text-on-dark font-medium text-btn
-           rounded-pill shadow-sm
-           hover:bg-blue-pressed active:bg-blue-pressed
-           transition-all duration-200 cursor-pointer;
+           transition-colors duration-150 cursor-pointer select-none;
+  }
+  .btn-blue:active { @apply bg-blue-pressed; }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           px-[24px] py-[12px] rounded-pill
+           bg-transparent text-ink border border-hairline-strong font-medium text-btn
+           transition-colors duration-150 cursor-pointer select-none;
+  }
+  .btn-secondary:active { @apply bg-surface; }
+
+  .btn-on-dark {
+    @apply inline-flex items-center justify-center gap-2
+           px-[24px] py-[12px] rounded-pill
+           bg-on-dark text-ink font-medium text-btn
+           transition-colors duration-150 cursor-pointer select-none;
+  }
+  .btn-on-dark:active { @apply bg-surface; }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           px-[12px] py-[8px] rounded-md
+           bg-transparent text-ink font-medium text-btn
+           transition-colors duration-150 cursor-pointer select-none;
+  }
+  .btn-ghost:active { @apply bg-surface; }
+
+  .btn-link {
+    @apply inline-flex items-center gap-1
+           text-brand-blue font-medium text-body-sm-medium
+           bg-transparent p-0 cursor-pointer select-none
+           underline-offset-2 hover:underline;
   }
 
-  /* ===== CARDS ===== */
-  .card {
-    @apply bg-canvas rounded-2xl border border-hairline p-6 transition-all;
+  .btn-icon-circular {
+    @apply inline-flex items-center justify-center
+           w-[36px] h-[36px] rounded-pill
+           bg-canvas text-ink border border-hairline
+           cursor-pointer transition-colors duration-150;
+  }
+  .btn-icon-circular:active { @apply bg-surface; }
+
+  /* ===================================================
+     NAV & TABS
+     =================================================== */
+
+  .navbar-container {
+    @apply flex items-center justify-between w-full
+           h-[72px] px-xl bg-canvas border-b border-hairline;
   }
 
-  /* Pastel sticky-note cards (Miro signature) */
-  .card-yellow  { @apply bg-yellow-light border-0; }
-  .card-coral   { @apply bg-coral-light border-0; }
-  .card-teal    { @apply bg-teal-light border-0; }
-  .card-rose    { @apply bg-brand-pink border-0; }
-  .card-orange  { @apply bg-brand-orange-light border-0; }
-
-  /* ===== TAGS (Miro "yellow tag" pills) ===== */
-  .tag-yellow {
-    @apply inline-flex items-center gap-1.5 px-3 py-1
-           bg-surface-yellow text-yellow-dark text-caption-bold
-           rounded-pill;
+  .pill-tab {
+    @apply inline-flex items-center justify-center
+           px-md py-xs rounded-pill border border-hairline
+           bg-canvas text-steel text-body-sm-medium
+           cursor-pointer transition-colors duration-150;
+  }
+  .pill-tab-active {
+    @apply border-transparent bg-ink text-on-dark;
   }
 
-  .tag-coral {
-    @apply inline-flex items-center gap-1.5 px-3 py-1
-           bg-coral-light text-coral-dark text-caption-bold
-           rounded-pill;
+
+  /* ===================================================
+     CARDS — flat-first, specific corners
+     =================================================== */
+
+  .card-base {
+    @apply bg-canvas rounded-xl p-xl border border-hairline-soft;
+  }
+  
+  .card-feature {
+    @apply bg-canvas rounded-xxxl p-xxl border border-hairline-soft;
   }
 
-  .tag-teal {
-    @apply inline-flex items-center gap-1.5 px-3 py-1
-           bg-teal-light text-moss-dark text-caption-bold
-           rounded-pill;
+  /* Pastel feature cards (Miro signature) */
+  .card-feature-yellow  { @apply bg-brand-yellow  text-ink rounded-xxxl p-xxl border-0; }
+  .card-feature-coral   { @apply bg-coral-light   text-ink rounded-xxxl p-xxl border-0; }
+  .card-feature-teal    { @apply bg-teal-light    text-ink rounded-xxxl p-xxl border-0; }
+  .card-feature-rose    { @apply bg-brand-pink    text-ink rounded-xxxl p-xxl border-0; }
+  .card-feature-orange  { @apply bg-brand-orange-light text-ink rounded-xxxl p-xxl border-0; }
+
+  .card-customer-story {
+    @apply bg-canvas rounded-xxxl p-0 border border-hairline-soft overflow-hidden;
+  }
+  
+  .card-stat {
+    @apply bg-transparent text-ink p-lg text-stat;
   }
 
-  /* ===== INPUT ===== */
-  .input-field {
-    @apply w-full px-4 py-3 rounded-xl border border-hairline-strong bg-canvas
-           text-ink placeholder:text-muted text-body-md
-           focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue
-           transition-all;
+  /* Pricing cards */
+  .pricing-card {
+    @apply bg-canvas rounded-xl p-xxl border border-hairline;
+  }
+  .pricing-card-featured {
+    @apply bg-surface-pricing rounded-xl p-xxl border-2 border-brand-blue;
+  }
+  .pricing-card-enterprise {
+    @apply bg-ink text-on-dark rounded-xl p-xxl border-0;
   }
 
-  /* ===== BADGES ===== */
-  .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-pill text-caption-bold;
-  }
-  .badge-success { @apply badge bg-teal-light text-moss-dark; }
-  .badge-danger  { @apply badge bg-coral-light text-coral-dark; }
-  .badge-yellow  { @apply badge bg-surface-yellow text-yellow-dark; }
-  .badge-blue    { @apply badge bg-surface-pricing text-brand-blue; }
+  /* ===================================================
+     INPUTS
+     =================================================== */
 
-  /* ===== SECTION SPACING ===== */
-  .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24;
+  .text-input {
+    @apply w-full h-[44px] px-md py-sm rounded-md
+           bg-canvas text-ink border border-hairline-strong
+           placeholder:text-muted text-body-md font-normal
+           focus:outline-none focus:border-2 focus:border-brand-blue
+           transition-colors duration-150;
   }
+
+  .search-pill {
+    @apply w-full h-[40px] px-md rounded-md
+           bg-surface text-steel border border-hairline
+           placeholder:text-stone text-body-sm font-normal
+           focus:outline-none focus:border-brand-blue
+           transition-colors duration-150;
+  }
+
+
+  /* ===================================================
+     TAGS & BADGES — 4px 10px / caption-bold
+     =================================================== */
+
+  .badge-tag {
+    @apply inline-flex items-center justify-center
+           px-[10px] py-[4px] rounded-pill text-caption-bold;
+  }
+  .badge-tag-yellow { @apply badge-tag bg-surface-yellow text-yellow-dark; }
+  .badge-tag-purple { @apply badge-tag bg-surface-pricing text-brand-blue; }
+  .badge-tag-coral  { @apply badge-tag bg-coral-light text-coral-dark; }
+  .badge-success    { @apply badge-tag bg-success text-on-dark; }
+
+  .badge-promo {
+    @apply inline-flex items-center justify-center
+           px-[10px] py-[4px] rounded-pill bg-brand-yellow text-ink text-caption-bold;
+  }
+
+  .badge-discount {
+    @apply inline-flex items-center justify-center
+           px-[6px] py-[2px] rounded-sm bg-brand-yellow text-ink text-caption-bold;
+  }
+
+  .promo-banner {
+    @apply w-full bg-ink text-on-dark text-body-sm-medium
+           px-md py-sm flex items-center justify-center gap-4;
+  }
+
+  /* ===================================================
+     LAYOUT & ELEVATION
+     =================================================== */
+
+  .container-marketing { @apply max-w-marketing mx-auto px-xxl; }
+
+  .section-lg  { @apply py-section-lg; } 
+  .section-md  { @apply py-section; }    
+  .section-sm  { @apply py-section-sm; } 
+
+  .elev-0 { @apply border border-hairline-soft shadow-none; }
+  .elev-1 { @apply shadow-subtle; }
+  .elev-2 { @apply shadow-card; }
+  .elev-3 { @apply shadow-mockup; }
+  .elev-4 { @apply shadow-modal; }
+
 }
 
 /* Glow score ring animation */

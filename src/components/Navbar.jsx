@@ -1,93 +1,107 @@
-import { Link, useLocation } from 'react-router-dom'
-import { Sun, Moon, Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import useStore from '../store'
 
 export default function Navbar() {
-  const { darkMode, toggleDarkMode, skinDNA } = useStore()
-  const location = useLocation()
-  const [open, setOpen] = useState(false)
-  const isLanding = location.pathname === '/'
-
-  const links = [
-    { to: '/dashboard', label: 'Check Product' },
-    { to: '/history', label: 'History' },
-    { to: '/profile', label: 'Profile' },
-  ]
+  const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
+  const { skinDNA } = useStore()
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-hairline">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo — canary yellow wordmark (Miro style) */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <span className="text-xl font-extrabold tracking-tight">
-              <span className="text-brand-yellow">FIT-CHECK</span>
-              <span className="text-ink ml-1">AI</span>
-            </span>
-          </Link>
-
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {!isLanding && links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === l.to
-                    ? 'bg-surface-alt text-ink font-bold'
-                    : 'text-mute hover:text-ink hover:bg-surface-alt'
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
-            {isLanding ? (
-              <div className="flex items-center gap-3 ml-4">
-                <Link to={skinDNA ? '/dashboard' : '/scan'} className="btn-primary text-sm">
-                  Get started free
-                </Link>
-                <a href="#how-it-works" className="btn-secondary text-sm !border !py-2.5">
-                  Book a demo
-                </a>
+    <nav className="sticky top-0 z-50 bg-canvas border-b border-hairline backdrop-blur-md bg-white/95">
+      <div className="max-w-marketing mx-auto px-xxl">
+        <div className="flex justify-between h-[72px] items-center">
+          {/* Left: Yellow square Miro-style wordmark + Links */}
+          <div className="flex items-center gap-8">
+            <Link to="/" className="flex items-center gap-3 select-none">
+              <div className="w-9 h-9 bg-brand-yellow flex items-center justify-center font-extrabold text-ink rounded-lg shadow-sm text-lg tracking-tighter">
+                F
               </div>
-            ) : (
-              <button
-                onClick={toggleDarkMode}
-                className="p-2 rounded-lg text-mute hover:text-ink hover:bg-surface-alt transition-colors ml-2"
-                aria-label="Toggle dark mode"
-              >
-                {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-            )}
+              <span className="font-extrabold text-xl tracking-tight text-ink flex items-center gap-1">
+                FIT-CHECK <span className="text-brand-yellow-deep font-black">AI</span>
+              </span>
+            </Link>
+
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-6">
+              <Link to="/scan" className="text-body-sm-medium text-charcoal hover:text-brand-blue transition-colors">Skin DNA</Link>
+              <Link to="/dashboard" className="text-body-sm-medium text-charcoal hover:text-brand-blue transition-colors">Check Product</Link>
+              <Link to="/history" className="text-body-sm-medium text-charcoal hover:text-brand-blue transition-colors">History</Link>
+              <Link to="/pricing" className="text-body-sm-medium text-charcoal hover:text-brand-blue transition-colors">Pricing</Link>
+              <Link to="/profile" className="text-body-sm-medium text-charcoal hover:text-brand-blue transition-colors">Profile</Link>
+            </div>
           </div>
 
-          {/* Mobile */}
-          <div className="md:hidden flex items-center gap-2">
-            <button onClick={() => setOpen(!open)} className="p-2 rounded-lg text-mute">
-              {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {/* Right: Actions */}
+          <div className="hidden lg:flex items-center gap-6">
+            <span className="text-body-sm-medium text-steel">YouCam SDK v1.5</span>
+            <Link 
+              to={skinDNA ? '/dashboard' : '/scan'} 
+              className="btn-primary py-2.5 px-5 text-sm"
+            >
+              Get started free <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="flex lg:hidden items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="btn-icon-circular"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
+      </div>
 
-        {open && (
-          <div className="md:hidden pb-4 space-y-1">
-            {links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className="block px-4 py-2 rounded-lg text-sm font-medium text-mute hover:text-ink hover:bg-surface-alt"
-              >
-                {l.label}
-              </Link>
-            ))}
-            <Link to={skinDNA ? '/dashboard' : '/scan'} onClick={() => setOpen(false)} className="block btn-primary mt-2 text-center text-sm">
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="lg:hidden border-t border-hairline bg-canvas px-6 py-6 space-y-4 shadow-modal">
+          <div className="flex flex-col gap-4">
+            <Link 
+              to="/scan" 
+              onClick={() => setIsOpen(false)}
+              className="text-body-md-medium text-ink hover:text-brand-blue py-2"
+            >
+              Skin DNA Scan
+            </Link>
+            <Link 
+              to="/dashboard" 
+              onClick={() => setIsOpen(false)}
+              className="text-body-md-medium text-ink hover:text-brand-blue py-2"
+            >
+              Check Product
+            </Link>
+            <Link 
+              to="/history" 
+              onClick={() => setIsOpen(false)}
+              className="text-body-md-medium text-ink hover:text-brand-blue py-2"
+            >
+              Check History
+            </Link>
+            <Link 
+              to="/profile" 
+              onClick={() => setIsOpen(false)}
+              className="text-body-md-medium text-ink hover:text-brand-blue py-2"
+            >
+              My Profile
+            </Link>
+          </div>
+          <div className="border-t border-hairline pt-4 flex flex-col gap-3">
+            <div className="text-xs text-steel">Running in Dev/Test Mode</div>
+            <Link 
+              to={skinDNA ? '/dashboard' : '/scan'} 
+              onClick={() => setIsOpen(false)}
+              className="btn-primary w-full text-center py-3"
+            >
               Get started free
             </Link>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   )
 }

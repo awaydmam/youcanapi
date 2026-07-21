@@ -5,8 +5,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Roobert PRO"', '"Noto Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        display: ['"Roobert PRO"', '"Noto Sans"', 'sans-serif'],
+        sans: ['"Roobert PRO"', 'Inter', '"Noto Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       fontSize: {
         'hero':    ['80px', { lineHeight: '1.05', letterSpacing: '-2px', fontWeight: '500' }],
@@ -53,11 +52,11 @@ export default {
         'surface-soft':      '#FAFBFC',
         'surface-yellow':    '#FFF8E1',
         'surface-pricing':   '#F0EEFF',
-        // Hairline
+        // Hairline (3-tier)
         'hairline':          '#E6E6E6',
         'hairline-soft':     '#F0F0F0',
         'hairline-strong':   '#D4D4D4',
-        // Text
+        // Text (9-level hierarchy)
         'ink-deep':          '#050038',
         'ink':               '#050038',
         'charcoal':          '#37352F',
@@ -75,8 +74,39 @@ export default {
         'warning':           '#F5A623',
         'info':              '#2B6BF3',
       },
+      spacing: {
+        'xxs': '4px',
+        'xs':  '8px',
+        'sm':  '12px',
+        'md':  '16px',
+        'lg':  '20px',
+        'xl':  '24px',
+        'xxl': '32px',
+        'xxxl':'40px',
+        'section-sm': '48px',
+        'section':    '64px',
+        'section-lg': '96px',
+        'hero-pad':   '120px',
+      },
       borderRadius: {
-        'pill': '9999px',
+        'xs':      '4px',
+        'sm':      '6px',
+        'md':      '8px',
+        'lg':      '12px',
+        'xl':      '16px',
+        'xxl':     '20px',
+        'xxxl':    '28px',
+        'feature': '32px',
+        'pill':    '9999px',
+      },
+      boxShadow: {
+        'subtle':  'rgba(5,0,56,0.04) 0px 1px 2px 0px',
+        'card':    'rgba(5,0,56,0.06) 0px 4px 12px 0px',
+        'mockup':  'rgba(5,0,56,0.08) 0px 12px 32px -4px',
+        'modal':   'rgba(5,0,56,0.12) 0px 16px 48px -8px',
+      },
+      maxWidth: {
+        'marketing': '1280px',
       },
     },
   },
