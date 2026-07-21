@@ -2,93 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Roobert PRO fallback — Inter is the closest free geometric sans-serif */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 @layer base {
   html {
     @apply scroll-smooth antialiased;
   }
   body {
-    @apply bg-white text-ink font-sans;
+    @apply bg-canvas text-ink font-sans text-body-md;
   }
 }
 
 @layer components {
-  /* Primary CTA — black pill (Miro signature) */
+  /* ===== BUTTONS (Miro: black pill CTA dominant) ===== */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3 
-           bg-ink text-white font-semibold text-sm
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3
+           bg-ink text-on-dark font-medium text-btn
            rounded-pill shadow-sm
            hover:bg-gray-800 active:bg-gray-900
            transition-all duration-200 cursor-pointer
            disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  /* Secondary / outline pill */
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 px-7 py-3
-           bg-white text-ink font-semibold text-sm
+           bg-canvas text-ink font-medium text-btn
            rounded-pill border-2 border-ink
-           hover:bg-gray-50 active:bg-gray-100
+           hover:bg-surface active:bg-surface-soft
            transition-all duration-200 cursor-pointer;
   }
 
-  /* Ghost / text button */
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 px-4 py-2
-           text-ink font-medium text-sm rounded-lg
-           hover:bg-surface-alt transition-colors cursor-pointer;
+           text-ink font-medium text-btn rounded-lg
+           hover:bg-surface transition-colors cursor-pointer;
   }
 
-  /* Blue action button */
   .btn-blue {
     @apply inline-flex items-center justify-center gap-2 px-7 py-3
-           bg-brand-blue text-white font-semibold text-sm
+           bg-brand-blue text-on-dark font-medium text-btn
            rounded-pill shadow-sm
            hover:bg-blue-pressed active:bg-blue-pressed
            transition-all duration-200 cursor-pointer;
   }
 
-  /* Card — white with subtle border */
+  /* ===== CARDS ===== */
   .card {
-    @apply bg-white rounded-2xl border border-hairline p-6 transition-all;
+    @apply bg-canvas rounded-2xl border border-hairline p-6 transition-all;
   }
 
-  /* Pastel feature cards (Miro sticky-note palette) */
+  /* Pastel sticky-note cards (Miro signature) */
   .card-yellow  { @apply bg-yellow-light border-0; }
   .card-coral   { @apply bg-coral-light border-0; }
   .card-teal    { @apply bg-teal-light border-0; }
   .card-rose    { @apply bg-brand-pink border-0; }
   .card-orange  { @apply bg-brand-orange-light border-0; }
 
-  /* Yellow tag pill (Miro feature tags) */
+  /* ===== TAGS (Miro "yellow tag" pills) ===== */
   .tag-yellow {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 
-           bg-yellow-light text-yellow-dark text-xs font-bold 
+    @apply inline-flex items-center gap-1.5 px-3 py-1
+           bg-surface-yellow text-yellow-dark text-caption-bold
            rounded-pill;
   }
 
-  /* Input */
+  .tag-coral {
+    @apply inline-flex items-center gap-1.5 px-3 py-1
+           bg-coral-light text-coral-dark text-caption-bold
+           rounded-pill;
+  }
+
+  .tag-teal {
+    @apply inline-flex items-center gap-1.5 px-3 py-1
+           bg-teal-light text-moss-dark text-caption-bold
+           rounded-pill;
+  }
+
+  /* ===== INPUT ===== */
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl border border-hairline bg-white
-           text-ink placeholder:text-mute
+    @apply w-full px-4 py-3 rounded-xl border border-hairline-strong bg-canvas
+           text-ink placeholder:text-muted text-body-md
            focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue
            transition-all;
   }
 
-  /* Badge variants */
+  /* ===== BADGES ===== */
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-pill text-xs font-bold;
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-pill text-caption-bold;
   }
-  .badge-success {
-    @apply badge bg-teal-light text-moss-dark;
-  }
-  .badge-danger {
-    @apply badge bg-coral-light text-coral-dark;
-  }
-  .badge-yellow {
-    @apply badge bg-yellow-light text-yellow-dark;
-  }
+  .badge-success { @apply badge bg-teal-light text-moss-dark; }
+  .badge-danger  { @apply badge bg-coral-light text-coral-dark; }
+  .badge-yellow  { @apply badge bg-surface-yellow text-yellow-dark; }
+  .badge-blue    { @apply badge bg-surface-pricing text-brand-blue; }
 
-  /* Section spacing */
+  /* ===== SECTION SPACING ===== */
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24;
   }
