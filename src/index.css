@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { @apply transition-colors duration-200; }
+  body { @apply bg-pulse-bg text-pulse-ink; }
+  .dark body { @apply bg-dark-bg text-dark-ink; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-pulse-primary text-white font-semibold rounded-md
+           hover:bg-pulse-primary-deep focus:outline-none focus:ring-2 focus:ring-pulse-primary/50
+           transition-all duration-200 active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-pulse-primary text-pulse-primary font-semibold rounded-md
+           hover:bg-pulse-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-pulse-primary/50
+           transition-all duration-200 active:scale-95;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-pulse-mute font-medium rounded-md
+           hover:bg-pulse-surface-dark hover:text-pulse-ink transition-all duration-200;
+  }
+  .card {
+    @apply bg-pulse-surface rounded-lg border border-pulse-hairline shadow-sm p-6;
+  }
+  .input-field {
+    @apply w-full px-4 py-3 bg-pulse-surface border border-pulse-hairline rounded-md text-pulse-ink
+           placeholder:text-pulse-mute focus:outline-none focus:ring-2 focus:ring-pulse-primary/50 focus:border-pulse-primary
+           transition-all duration-200;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-success { @apply badge bg-pulse-success/10 text-pulse-success; }
+  .badge-warning { @apply badge bg-pulse-warning/10 text-pulse-warning; }
+  .badge-danger { @apply badge bg-pulse-danger/10 text-pulse-danger; }
+  .badge-info { @apply badge bg-pulse-info/10 text-pulse-info; }
+  .section-padding { @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24; }
+  .glow-score-ring {
+    @apply relative w-32 h-32 rounded-full flex items-center justify-center;
+    background: conic-gradient(var(--score-color) calc(var(--score) * 1%), #e5e7eb calc(var(--score) * 1%));
+  }
+}
